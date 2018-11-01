@@ -1,0 +1,1 @@
+Get-MailboxDatabase -Status | FT AdminDisplayName, AvailableNewMailboxSpace
