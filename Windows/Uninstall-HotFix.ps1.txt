@@ -1,0 +1,2 @@
+Usage:
+.\Uninstall-HotFix -ComputerName Home-PC -HotfixID KB3114409
