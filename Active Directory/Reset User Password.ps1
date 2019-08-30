@@ -16,14 +16,14 @@ If ( (Get-Module -Name ActiveDirectory -ErrorAction SilentlyContinue) -eq $null 
         # code of 1 so that CU sees that it was not successful
 		write-host '[*]   ----------------------------------------------------------------------------------------'
 		write-host '[*]   | RSAT Tools or ActiveDirectory module is not installed on this computer               |'
-		write-host '[*]   | Please run: "Add-WindowsFeature RSAT-AD-PowerShell" to install the powershell module |'
+		write-host '[*]   | Please install the powershell module needed                                          |'
 		write-host '[*]   ----------------------------------------------------------------------------------------'
         #Write-Error "Not able to load the Module" -ErrorAction Continue
         #Write-Error $Error[1] -ErrorAction Continue
         Exit 1
     }
 }
-
+import-module servermanager
 
 $User = Read-Host '[+] Username to reset password is'
 for ($i=1; $i -le 10; $i++) {
