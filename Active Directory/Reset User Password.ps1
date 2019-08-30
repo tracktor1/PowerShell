@@ -2,7 +2,6 @@
 This script will check if Active Directory module is enabled then ask for the username to reset password.
 after reseting the password it will enable the user must change password at next logon checkbox.
 
-
 DA-#>
 
 # Change to $false to deisable the user must change password at next logon 
@@ -36,7 +35,7 @@ write-host
 Try {
 	$Getuser = Get-ADUser $User -ErrorAction stop
 	$UserName = $Getuser.Name
-	write-host '[+] Please confirm, the user is' $UserName
+	write-host '[+] Please confirm, the user is' $UserName '?'
 	$confirmation = Read-Host '[+] [Y] to confirm or any key to cancel'
 	if ($confirmation -eq 'y') {
 		write-host 'user is:' $UserName
