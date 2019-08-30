@@ -1,6 +1,6 @@
 <#
 This script will check if Active Directory module is enabled then ask for the username to reset password.
-after reseting the password it will enable the user must change password at next logon checkbox.
+after reseting the password it will enable the "user must change password at next logon" checkbox.
 
 DA-#>
 
@@ -49,7 +49,7 @@ Try {
 } 
 catch {
 	write-host 'User does not exist check username and try again' -ForegroundColor red
-		Exit 1
+	Exit 1
 }
 
 
