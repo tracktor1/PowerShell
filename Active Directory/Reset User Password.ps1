@@ -41,6 +41,7 @@ Try {
 	if ($confirmation -eq 'y') {
 		write-host 'user is:' $UserName
 		$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
+		Set-ADAccountPassword -Identity $User -NewPassword $NewPassword -Reset
 		Set-Aduser $User -ChangePasswordAtLogon $ChngPass
 	}
 	Else {
@@ -52,8 +53,6 @@ catch {
 		Exit 1
 }
 
-
-#Set-ADAccountPassword -Identity $User -NewPassword $NewPassword -Reset
 
 
 
