@@ -42,6 +42,8 @@ Try {
 	foreach($Line in $Getuser) {
 		$UserName = $Line.Name
 		$UserSam = $Line.SamAccountName
+		$userstatus = $Line.Enabled
+		write-host '[+] User status is:' $userstatus
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
