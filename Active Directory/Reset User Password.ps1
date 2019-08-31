@@ -1,56 +1,62 @@
 <#
-This script will check if Active Directory module is enabled then ask for the username to reset password.
-after reseting the password it will enable the "user must change password at next logon" checkbox.
+This script will reset the user password and enable the "user must change password at next logon" checkbox.
+it will check if Active Directory module is enabled and try to load it.
 
 DA-#>
 
 # Change to $false to deisable the user must change password at next logon 
 [bool] $ChngPass = $true
+# Clewar Errors before starting
+$error.clear()
 
 # Check if Active Directory module is enabled, if not try to import.
 If ( (Get-Module -Name ActiveDirectory -ErrorAction SilentlyContinue) -eq $null ) {
     Try {
         Import-Module ActiveDirectory -ErrorAction stop
     } Catch {
-        # Catch failure and display error
+        # capture any failure and display it in the error section, then end the script with a return
+        # code of 1 so that CU sees that it was not successful
 		write-host '[*]   ----------------------------------------------------------------------------------------'
 		write-host '[*]   | RSAT Tools or ActiveDirectory module is not installed on this computer               |'
-		write-host '[*]   | Please install the powershell module needed                                          |'
+		write-host '[*]   | Please run: "Add-WindowsFeature RSAT-AD-PowerShell" to install the powershell module |'
 		write-host '[*]   ----------------------------------------------------------------------------------------'
-        #Write-Error "Cannot load the Module" -ErrorAction Continue
+        #Write-Error "Not able to load the Module" -ErrorAction Continue
         #Write-Error $Error[1] -ErrorAction Continue
+		$error
         Exit 1
     }
 }
 
-# Ask for the username to reset
+
 $User = Read-Host '[+] Username to reset password is'
 for ($i=1; $i -le 10; $i++) {
 Write-Host '****' -NoNewline
 start-sleep -milliseconds 10
 }
 write-host
-# Check if the user exist confirm and change the password
+# Check if the user exist
 Try {
-	$Getuser = Get-ADUser $User -ErrorAction stop
-	$UserName = $Getuser.Name
-	write-host '[+] Please confirm, the user is' $UserName '?'
-	$confirmation = Read-Host '[+] [Y] to confirm or any key to cancel'
-	if ($confirmation -eq 'y') {
-		write-host 'user is:' $UserName
-		$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
-		Set-ADAccountPassword -Identity $User -NewPassword $NewPassword -Reset
-		Set-Aduser $User -ChangePasswordAtLogon $ChngPass
-	}
-	Else {
-		Exit 1
+	$Combo = -Join("*",$User,"*")
+	write-host $Combo
+	$Getuser = Get-ADUser -Filter 'Name -like $Combo' -ErrorAction stop
+	foreach($Line in $Getuser) {
+		$UserName = $Line.Name
+		$UserSam = $Line.SamAccountName
+		write-host '[+] Please confirm, the user is' $UserName '?'
+		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
+		if ($confirmation -eq 'y') {
+			write-host 'user is:' $UserName
+			$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
+			Set-ADAccountPassword -Identity $UserSam -NewPassword $NewPassword -Reset -ErrorAction stop
+			Set-Aduser $UserSam -ChangePasswordAtLogon $ChngPass -ErrorAction stop
+			write-host  '[+] The password for user:' $UserSam 'was changed'  -ForegroundColor green
+			Exit 0
+		}
 	}
 } 
 catch {
-	write-host 'User does not exist check username and try again' -ForegroundColor red
+	write-host 'Script has errors' -ForegroundColor red
+	$error
 	Exit 1
 }
-
-
-
 
