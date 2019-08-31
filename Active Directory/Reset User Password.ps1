@@ -6,7 +6,7 @@ DA-#>
 
 # Change to $false to deisable the user must change password at next logon 
 [bool] $ChngPass = $true
-# Clewar Errors before starting
+# Clear Errors before starting
 $error.clear()
 
 # Check if Active Directory module is enabled, if not try to import.
