@@ -4,7 +4,7 @@ it will check if Active Directory module is enabled and try to load it.
 
 DA-#>
 
-# Change to $false to deisable the user must change password at next logon 
+# Change to "$false" to deisable the user must change password at next logon 
 [bool] $ChngPass = $true
 # Clear Errors before starting the script
 $error.clear()
