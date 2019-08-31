@@ -37,13 +37,14 @@ write-host
 # Check if the user exist
 Try {
 	$Combo = -Join("*",$User,"*")
-	write-host $Combo
 	$Getuser = Get-ADUser -Filter 'Name -like $Combo' -ErrorAction stop
 	foreach($Line in $Getuser) {
 		$UserName = $Line.Name
 		$UserSam = $Line.SamAccountName
-		$userstatus = $Line.Enabled
-		write-host '[+] User status is:' $userstatus
+		$Userstatus = $Line.Enabled
+		if ($Userstatus -ep 'False') {
+			write-host '[+] Be advised user is disabled' -ForegroundColor orange
+		}
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
