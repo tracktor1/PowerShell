@@ -42,7 +42,7 @@ Try {
 		$UserName = $Line.Name
 		$UserSam = $Line.SamAccountName
 		$Userstatus = $Line.Enabled
-		if ($Userstatus -ep $False) {
+		if ($Userstatus -eq $False) {
 			write-host '[+] Be advised user is disabled' -ForegroundColor orange
 		}
 		write-host '[+] Please confirm, the user is' $UserName '?'
