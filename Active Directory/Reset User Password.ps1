@@ -23,13 +23,14 @@ If ( (Get-Module -Name ActiveDirectory -ErrorAction SilentlyContinue) -eq $null 
     }
 }
 
+# Ask for the username to reset
 $User = Read-Host '[+] Username to reset password is'
 for ($i=1; $i -le 10; $i++) {
 Write-Host '****' -NoNewline
 start-sleep -milliseconds 10
 }
 write-host
-# Check if the user exist
+# Check if the user exist confirm and change the password
 Try {
 	$Getuser = Get-ADUser $User -ErrorAction stop
 	$UserName = $Getuser.Name
