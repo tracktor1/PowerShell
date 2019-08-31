@@ -27,7 +27,6 @@ If ( (Get-Module -Name ActiveDirectory -ErrorAction SilentlyContinue) -eq $null 
     }
 }
 
-
 $User = Read-Host '[+] Username to reset password is'
 for ($i=1; $i -le 10; $i++) {
 Write-Host '****' -NoNewline
