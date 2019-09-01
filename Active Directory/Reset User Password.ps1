@@ -50,9 +50,11 @@ Try {
 				write-host '[+] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
 				$ConfirmNever = Read-Host '[+] Press [Y] if you want to remove this option or any key to skip'
 				if ($ConfirmNever -eq 'y') {
-					write-host 'enable never never never command'
+					Set-Aduser $UserSam -PasswordNeverExpires $False -ErrorAction stop
+					write-host 'Password never expires removed' -ForegroundColor Green
 				}
 				Else {
+					write-host 'Cannot change password if Password never expires enabled' -ForegroundColor Red
 					Exit 1
 				}
 			}
