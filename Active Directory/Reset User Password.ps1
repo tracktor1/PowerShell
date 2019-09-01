@@ -45,16 +45,25 @@ Try {
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
-			write-host 'user is:' $UserName
+			write-host 'Selected user is:' $UserName.ToUpper
 			if ($PassNever = $True) {
 				write-host '[+] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
-				Exit 1
+				$ConfirmNever = Read-Host '[+] Press [Y] if you want to remove this option or any key to skip'
+				if ($ConfirmNever -eq 'y') {
+					write-host 'enable never never never command'
+				}
+				Else {
+					Exit 1
+				}
 			}
 			if ($Userstatus -eq $False) {
 				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
-				$enableuser = Read-Host '[+] Press [Y] is you want tu enable or any key to skip'
-				if ($enableuser -eq 'y') {
+				$ConfirEenableUser = Read-Host '[+] Press [Y] if you want to enable or any key to skip'
+				if ($ConfirEenableUser -eq 'y') {
 					write-host 'enable user command'
+				}
+				Else {
+					Exit 1
 				}
 			}
 			$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
