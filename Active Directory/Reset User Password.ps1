@@ -42,8 +42,6 @@ Try {
 		$UserSam = $Line.SamAccountName
 		$Userstatus = $Line.Enabled
 		$PassNever = $Line.passwordNeverExpires
-		write-host $Userstatus
-		write-host $PassNever
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
@@ -60,9 +58,10 @@ Try {
 			}
 			if ($Userstatus -eq $False) {
 				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
-				$ConfirEenableUser = Read-Host '[+] Press [Y] if you want to enable or any key to skip'
+				$ConfirEenableUser = Read-Host '[+] Press [Y] if you want to enable it or any key to skip'
 				if ($ConfirEenableUser -eq 'y') {
-					write-host 'enable user command'
+					Enable-ADAccount -Identity $UserSam
+					write-host 'Enabling user account' -ForegroundColor Green
 				}
 				Else {
 					Exit 1
