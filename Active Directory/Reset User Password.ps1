@@ -52,6 +52,10 @@ Try {
 			}
 			if ($Userstatus -eq $False) {
 				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
+				$enableuser = Read-Host '[+] Press [Y] is you want tu enable or any key to skip'
+				if ($enableuser -eq 'y') {
+					write-host 'enable user command'
+				}
 			}
 			$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
 			Set-ADAccountPassword -Identity $UserSam -NewPassword $NewPassword -Reset -ErrorAction stop
