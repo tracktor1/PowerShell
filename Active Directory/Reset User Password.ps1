@@ -47,23 +47,23 @@ Try {
 		if ($confirmation -eq 'y') {
 			write-host 'Selected user is:' $UserName
 			if ($PassNever -eq $True) {
-				write-host '[+] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
+				write-host '[-] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
 				$ConfirmNever = Read-Host '[+] Press [Y] if you want to remove this option or any key to skip'
 				if ($ConfirmNever -eq 'y') {
 					Set-Aduser $UserSam -PasswordNeverExpires $False -ErrorAction stop
-					write-host 'Password never expires removed' -ForegroundColor Green
+					write-host '[+] Password never expires removed' -ForegroundColor Green
 				}
 				Else {
-					write-host 'Cannot change password if Password never expires enabled' -ForegroundColor Red
+					write-host '[-] Cannot change password if Password never expires enabled' -ForegroundColor Red
 					Exit 1
 				}
 			}
 			if ($Userstatus -eq $False) {
-				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
+				write-host '[-] Be advised the user is disabled' -ForegroundColor Yellow
 				$ConfirEenableUser = Read-Host '[+] Press [Y] if you want to enable it or any key to skip'
 				if ($ConfirEenableUser -eq 'y') {
 					Enable-ADAccount -Identity $UserSam
-					write-host 'Enabling user account' -ForegroundColor Green
+					write-host '[+] Enabling user account' -ForegroundColor Green
 				}
 			}
 			$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
