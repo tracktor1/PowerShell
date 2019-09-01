@@ -36,15 +36,20 @@ write-host
 # Check if the user exist
 Try {
 	$Combo = -Join("*",$User,"*")
-	$Getuser = Get-ADUser -Filter 'Name -like $Combo' -ErrorAction stop
+	$Getuser = Get-ADUser -Filter 'Name -like $Combo' -properties * -ErrorAction stop
 	foreach($Line in $Getuser) {
 		$UserName = $Line.Name
 		$UserSam = $Line.SamAccountName
 		$Userstatus = $Line.Enabled
+		$PassNever = $Line.passwordNeverExpires
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
 			write-host 'user is:' $UserName
+			if ($PassNever = $True) {
+				write-host '[+] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
+				Exit 1
+			}
 			if ($Userstatus -eq $False) {
 				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
 			}
