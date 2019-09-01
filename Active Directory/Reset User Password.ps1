@@ -48,7 +48,15 @@ Try {
 			write-host 'user is:' $UserName
 			if ($PassNever = $True) {
 				write-host '[+] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
-				Exit 1
+				$PassNeverConfirm = Read-Host 'Press [Y] if you want to disable or any key to exit'
+				if ($PassNeverConfirm -eq 'y') {
+					Write-host 'Command needed to disable the password neven expires'
+					Exit 1
+				}
+				Else {
+					write-host '[+] Nothing Changed' -ForegroundColor Red
+					Exit 1
+				}
 			}
 			if ($Userstatus -eq $False) {
 				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
