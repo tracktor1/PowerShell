@@ -42,11 +42,13 @@ Try {
 		$UserSam = $Line.SamAccountName
 		$Userstatus = $Line.Enabled
 		$PassNever = $Line.passwordNeverExpires
+		write-host $Userstatus
+		write-host $PassNever
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
-			write-host 'Selected user is:' $UserName.ToUpper
-			if ($PassNever = $True) {
+			write-host 'Selected user is:' $UserName
+			if ($PassNever -eq $True) {
 				write-host '[+] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
 				$ConfirmNever = Read-Host '[+] Press [Y] if you want to remove this option or any key to skip'
 				if ($ConfirmNever -eq 'y') {
