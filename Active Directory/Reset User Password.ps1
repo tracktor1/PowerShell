@@ -41,13 +41,13 @@ Try {
 		$UserName = $Line.Name
 		$UserSam = $Line.SamAccountName
 		$Userstatus = $Line.Enabled
-		if ($Userstatus -eq $False) {
-			write-host '[+] Be advised user the is disabled' -ForegroundColor Yellow
-		}
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
 			write-host 'user is:' $UserName
+			if ($Userstatus -eq $False) {
+				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
+			}
 			$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
 			Set-ADAccountPassword -Identity $UserSam -NewPassword $NewPassword -Reset -ErrorAction stop
 			Set-Aduser $UserSam -ChangePasswordAtLogon $ChngPass -ErrorAction stop
