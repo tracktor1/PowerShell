@@ -66,7 +66,7 @@ Try {
 					write-host '[+] Enabling user account' -ForegroundColor Green
 				}
 			}
-			$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
+			$NewPassword = (Read-Host -Prompt "[+] Please provide New Password" -AsSecureString)
 			Set-ADAccountPassword -Identity $UserSam -NewPassword $NewPassword -Reset -ErrorAction stop
 			Set-Aduser $UserSam -ChangePasswordAtLogon $ChngPass -ErrorAction stop
 			write-host  '[+] The password for user:' $UserSam 'was changed'  -ForegroundColor green
