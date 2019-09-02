@@ -1,7 +1,6 @@
 <#
 This script will reset the user password and enable the "user must change password at next logon" checkbox.
 it will check if Active Directory module is enabled and try to load it.
-
 DA-#>
 
 # Change to "$false" to deisable the user must change password at next logon 
@@ -45,27 +44,32 @@ Try {
 		write-host '[+] Please confirm, the user is' $UserName '?'
 		$confirmation = Read-Host '[+] Press [Y] to confirm or any key to cancel'
 		if ($confirmation -eq 'y') {
-			write-host 'user is:' $UserName
-			if ($PassNever = $True) {
-				write-host '[+] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
-				$PassNeverConfirm = Read-Host 'Press [Y] if you want to disable or any key to exit'
-				if ($PassNeverConfirm -eq 'y') {
-					Write-host 'Command needed to disable the password neven expires'
-					Exit 1
+			write-host 'Selected user is:' $UserName
+			if ($PassNever -eq $True) {
+				write-host '[-] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
+				$ConfirmNever = Read-Host '[+] Press [Y] if you want to remove this option or any key to skip'
+				if ($ConfirmNever -eq 'y') {
+					Set-Aduser $UserSam -PasswordNeverExpires $False -ErrorAction stop
+					write-host '[+] Password never expires removed' -ForegroundColor Green
 				}
 				Else {
-					write-host '[+] Nothing Changed' -ForegroundColor Red
+					write-host '[-] Cannot change password if Password never expires enabled' -ForegroundColor Red
 					Exit 1
 				}
 			}
 			if ($Userstatus -eq $False) {
-				write-host '[+] Be advised the user is disabled' -ForegroundColor Yellow
+				write-host '[-] Be advised the user is disabled' -ForegroundColor Yellow
+				$ConfirEenableUser = Read-Host '[+] Press [Y] if you want to enable it or any key to skip'
+				if ($ConfirEenableUser -eq 'y') {
+					Enable-ADAccount -Identity $UserSam
+					write-host '[+] Enabling user account' -ForegroundColor Green
+				}
 			}
-			$NewPassword = (Read-Host -Prompt "Provide New Password" -AsSecureString)
+			$NewPassword = (Read-Host -Prompt "[+] Please provide New Password" -AsSecureString)
 			Set-ADAccountPassword -Identity $UserSam -NewPassword $NewPassword -Reset -ErrorAction stop
 			Set-Aduser $UserSam -ChangePasswordAtLogon $ChngPass -ErrorAction stop
 			write-host  '[+] The password for user:' $UserSam 'was changed'  -ForegroundColor green
-			write-host  '[+] User will be prompted to change the password on next logon'  -ForegroundColor green
+			write-host  '[+] User will be prompted to change the password at next logon'  -ForegroundColor green
 			Exit 0
 		}
 	}
@@ -75,4 +79,3 @@ catch {
 	write-host $error -ForegroundColor Yellow
 	Exit 1
 }
-
