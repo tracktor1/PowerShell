@@ -46,7 +46,7 @@ Try {
 		if ($confirmation -eq 'y') {
 			write-host 'Selected user is:' $UserName
 			if ($PassNever -eq $True) {
-				write-host '[-] Cennot reset password the user has Password never expires configured' -ForegroundColor Red
+				write-host '[-] Cennot reset password! the user has "Password never expires" configured' -ForegroundColor Red
 				$ConfirmNever = Read-Host '[+] Press [Y] if you want to remove this option or any key to skip'
 				if ($ConfirmNever -eq 'y') {
 					Set-Aduser $UserSam -PasswordNeverExpires $False -ErrorAction stop
