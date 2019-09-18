@@ -1,6 +1,6 @@
 <#
 	.NAME
-	Write-Log
+		Write-Log
 	
 	.SYNOPSIS
 		Write-Log - Write text to a log file
