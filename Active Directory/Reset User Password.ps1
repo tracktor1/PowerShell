@@ -19,9 +19,7 @@ If ( (Get-Module -Name ActiveDirectory -ErrorAction SilentlyContinue) -eq $null 
 		write-host '[*]   | RSAT Tools or ActiveDirectory module is not installed on this computer               |'
 		write-host '[*]   | Please run: "Add-WindowsFeature RSAT-AD-PowerShell" to install the powershell module |'
 		write-host '[*]   ----------------------------------------------------------------------------------------'
-        #Write-Error "Not able to load the Module" -ErrorAction Continue
-        #Write-Error $Error[1] -ErrorAction Continue
-		$error
+		write-host $error -ForegroundColor Yellow
         Exit 1
     }
 }
