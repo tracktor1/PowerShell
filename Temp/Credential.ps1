@@ -1,8 +1,16 @@
 $credentials = Get-Credential
-$filename = 'C:\Cred-safe\secretfile.txt'
+$filename = 'secretfile.txt'
+$Filepath = 'C:\Cred-safe\'
 $credentials | Export-CliXml -Path $filename
 
-#Test path
+# Check if $filename is directory or file
+if ((Get-Item $filename) -is [System.IO.DirectoryInfo]) {
+	write-host = "xxxxxx"
+	}
+else {
+	write-host = "YYYYYY"
+}
+#Test path exists
 if (!(Test-Path $filename -PathType leaf)){
 	write-host "File $filename not found, creating..."
 	try {
