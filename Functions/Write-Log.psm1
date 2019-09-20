@@ -12,7 +12,7 @@
 		Log File location
 	
 	.PARAMETER ErrorMsg
-		The eeror to write in the log file
+		The error to write in the log file
 	
     .EXAMPLE
 		Write-Log -LogPath c:\tmp\error.log -ErrorMsg "Error to log in file"
@@ -20,7 +20,13 @@ DA-#>
 
 Function Write-Log {
 
-	Param ([string]$LogPath, [string]$ErrorMsg)
+	Param (
+		# The path to store the log file
+		[string]$LogPath,
+		# The error to write to log file
+		[string]$ErrorMsg
+		)
+	
 	$error.clear()
 	if (!(Test-Path $LogPath -PathType leaf)){
 		write-host "File $LogPath not found, creating..."
@@ -29,7 +35,7 @@ Function Write-Log {
 		New-Item -ItemType Directory -Force -Path $Folder -ErrorAction stop | Out-Null
 		}
 	catch {
-		write-host 'Script has errors, cannt creat path' -ForegroundColor red
+		write-host 'Script has errors, cannot creat path' -ForegroundColor red
 		Exit 1
 		}
 	}
