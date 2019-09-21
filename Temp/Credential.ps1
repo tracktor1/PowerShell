@@ -22,10 +22,11 @@ if ((Test-Path $Saveto -PathType leaf)){
 	if ($Overwrite -eq 'y') {
 		$credentials = Get-Credential
 		$credentials | Export-CliXml -Path $Saveto
-		write-host 'Saved credentials in $Saveto'
+		write-host 'Saved credentials in $Saveto' -ForegroundColor Green
 	}
 	else {
 		write-host '[-] Did nothing...' -ForegroundColor Yellow
+		Exit 1
 	}
 	try {
 		$Folder = Split-Path -Path $Filename
