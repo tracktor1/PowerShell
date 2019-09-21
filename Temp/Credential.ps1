@@ -17,30 +17,22 @@ if (!(Test-Path $FolderPath)){
 }
 # Check if file exists
 if ((Test-Path $Saveto -PathType leaf)){
-	Write-Host '[-] File $Filename found in repository, overwrite?'
+	Write-Host "[-] File $Filename found in repository, overwrite?"
 	$Overwrite = Read-Host '[+] Press [Y] if you want to overwrite or any key to skip'
 	if ($Overwrite -eq 'y') {
 		$credentials = Get-Credential
 		$credentials | Export-CliXml -Path $Saveto
-		write-host 'Saved credentials in $Saveto' -ForegroundColor Green
+		write-host "[+] Saved credentials in $Saveto" -ForegroundColor Green
 	}
 	else {
-		write-host '[-] Did nothing...' -ForegroundColor Yellow
+		write-host '[-] No changes made, Did nothing...' -ForegroundColor Yellow
 		Exit 1
 	}
-	try {
-		$Folder = Split-Path -Path $Filename
-		New-Item -ItemType Directory -Force -Path $Folder -ErrorAction stop | Out-Null
-	}
-	catch {
-		write-host 'Script has errors, cannot creat path' -ForegroundColor red
-		Exit 1
-		}
 }
 else {
 	$credentials = Get-Credential
 	$credentials | Export-CliXml -Path $Saveto
-	write-host 'Saved credentials in $Saveto'
+	write-host "[+] Saved credentials in $Saveto" -ForegroundColor Green
 }
 
 
