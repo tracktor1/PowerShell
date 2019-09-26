@@ -17,6 +17,11 @@ Function Store-cred {
 		)
 		
 	$credentials = Get-Credential
+	$user = $credentials.username
+	if ($user -eq $null){
+		write-host "[-] User cannot be empty..." -ForegroundColor Yellow
+		Exit 1
+	}
 	$credentials | Export-CliXml -Path $Savepath
 	write-host "[+] Saved credentials in $Savepath `n" -ForegroundColor Green		
 }
