@@ -7,7 +7,8 @@ foreach($Line in $csv) {
 	$menuorder = $Line.order
 	$menudesc = $Line.description
 	$menudo = $Line.do
-	Write-Host "$menuorder. $($processes[$i-1].name)"
+	Write-Host $menudesc
+	#Write-Host "$menuorder. $($processes[$i-1].name)"
 	#$menu.Add($i,($processes[$i-1].name)) 
 	}
 <#
