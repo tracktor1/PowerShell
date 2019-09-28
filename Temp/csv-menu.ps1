@@ -8,7 +8,13 @@ foreach($Line in $csv) {
 	Write-Host "[+] $menuorder - $menudesc"
 }
 
-[int]$ans = Read-Host 'Please select menu item to run 1,2,3...'
-$selection = $csv[$ans-1]
-write-host $selection
-$selection.do
+$ans = Read-Host 'Please select menu item to run 1,2,3...'
+foreach($Line in $csv) {
+	if ($Line.order -eq $ans){
+	write-host $Line.do
+	}
+}
+
+#	$selection = $csv[$ans-1].do
+#	write-host $selection
+#	#$selection.do
