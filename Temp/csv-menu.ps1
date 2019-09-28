@@ -14,7 +14,3 @@ foreach($Line in $csv) {
 	write-host $Line.do
 	}
 }
-
-#	$selection = $csv[$ans-1].do
-#	write-host $selection
-#	#$selection.do
