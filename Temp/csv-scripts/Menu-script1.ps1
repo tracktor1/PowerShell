@@ -1,5 +1,5 @@
 
-
-write-host `n Menu script 1 is running
+write-host `n
+write-host Menu script 1 is running
 
 $PSScriptRoot
