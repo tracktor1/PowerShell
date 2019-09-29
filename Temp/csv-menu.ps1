@@ -1,3 +1,9 @@
+<#
+Basic menu based on a CSV file to manage the order of the menu items and 
+scripts to execute.
+
+DA-#>
+
 $csv = Import-CSV -Path .\csv-menu.csv
 
 
