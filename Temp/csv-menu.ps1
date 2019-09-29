@@ -4,7 +4,6 @@ $csv = Import-CSV -Path .\csv-menu.csv
 foreach($Line in $csv) {
 	$menuorder = $Line.order
 	$menudesc = $Line.description
-	$menudo = $Line.do
 	Write-Host "[+] $menuorder - $menudesc"
 }
 
@@ -27,6 +26,8 @@ catch {
 
 foreach($Line in $csv) {
 	if ($Line.order -eq $ans){
-	write-host $Line.do
+	$run = $Line.do
+	write-host Running script $run
+	invoke-expression -Command $run
 	}
 }

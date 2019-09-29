@@ -1,4 +1,4 @@
 Order,Description,Do
-1,menu line 1,1111111111
-2,menu line 2,2222222222
-3,menu line 3,3333333333
+1,menu line 1,.\csv-scripts\Menu-script1.ps1
+2,menu line 2,.\csv-scripts\Menu-script2.ps1
+3,menu line 3,.\csv-scripts\Menu-script3.ps1
