@@ -28,6 +28,10 @@ Function Add-Module {
 		try {
 			# If module is not imported or not available on disk, try import from online gallery.
 			if (Find-Module -Name $name -ErrorAction stop | Where-Object {$_.Name -eq $name}) {
+				# Check if script runs as admin before trying to install module
+				if (!([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+				Write-Warning "Cannot install module, script runs as non admin user, please run the script again as Administrator" ; break
+				}
 				try {
 				Install-Module -Name $name -Force -Scope CurrentUser -ErrorAction stop
 				}
