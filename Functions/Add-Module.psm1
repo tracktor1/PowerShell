@@ -8,42 +8,42 @@
 	.DESCRIPTION 
 		This function checks if module exists and if not will try to import/install it.
 
-	.PARAMETER Mname
+	.PARAMETER name
 		Module name to be installed
 	
     .EXAMPLE
-		Add-Module -Mname AzureAD
+		Add-Module -name AzureAD
 DA-#>
 Function Add-Module {
 	Param (
-	[Parameter(Mandatory=$true)] [string]$Mname
+	[Parameter(Mandatory=$true)] [string]$name
 	)
 
 
 	# Check if module is enabled, if not try to import.
-	if (Get-Module -ListAvailable | Where-Object {$_.Name -eq $Mname}) {
-		Import-Module $Mname -Scope Global -ErrorAction stop
+	if (Get-Module -ListAvailable | Where-Object {$_.Name -eq $name}) {
+		Import-Module $name -Scope Global -ErrorAction stop
 	}
 	else {
 		try {
 			# If module is not imported or not available on disk, try import from online gallery.
-			if (Find-Module -Name $Mname -ErrorAction stop | Where-Object {$_.Name -eq $Mname}) {
+			if (Find-Module -Name $name -ErrorAction stop | Where-Object {$_.Name -eq $name}) {
 				try {
-				Install-Module -Name $Mname -Force -Scope CurrentUser -ErrorAction stop
+				Install-Module -Name $name -Force -Scope CurrentUser -ErrorAction stop
 				}
 				catch {
-				write-host 'Install-Module' $Mname ' error'
+				write-host 'Install-Module' $name ' error'
 				}
 				try {
-				Import-Module $Mname -Scope Global -ErrorAction stop
+				Import-Module $name -Scope Global -ErrorAction stop
 				}
 				catch {
-				write-host 'Import-Module' $Mname ' after install module error'
+				write-host 'Import-Module' $name ' --after install module error'
 				}
 			}
 		}
 		catch {
-		write-host 'Find-Module' $Mname ' error module not found'
+		write-host 'Find-Module' $name ' --error module not found in online gallery'
 		}
 	}
 }
