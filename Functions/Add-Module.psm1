@@ -33,7 +33,7 @@ Function Add-Module {
 				Write-Warning "Cannot install module, script runs as non admin user, please run the script again as Administrator" ; break
 				}
 				try {
-				Install-Module -Name $name -Force -Scope CurrentUser -ErrorAction stop
+				Install-Module -Name $name -Force -AllowClobber -Scope CurrentUser -ErrorAction stop
 				}
 				catch {
 				write-host 'Install-Module' $name ' error'
