@@ -4,7 +4,7 @@ scripts to execute.
 
 DA-#>
 
-$csv = Import-CSV -Path .\csv-menu.csv
+$csv = Import-CSV -Path .\menu.csv
 
 
 foreach($Line in $csv) {
