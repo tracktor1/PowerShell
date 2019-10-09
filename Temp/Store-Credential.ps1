@@ -5,9 +5,12 @@
 DA-#>
 
 
-$Filename = 'admin-pass.txt'
+#$Filename = 'admin-pass.txt'
+
+$Filename = Read-Host "`nEnter credentials file name"
 $FolderPath = 'C:\Cred-Rep\'
 $Saveto = Join-Path $FolderPath $Filename
+
 
 Function Store-cred {
 
@@ -24,6 +27,12 @@ Function Store-cred {
 	}
 	$credentials | Export-CliXml -Path $Savepath
 	write-host "[+] Saved credentials in $Savepath `n" -ForegroundColor Green		
+}
+
+
+if ($Filename -eq ""){
+		write-host "`n[-] Filename cannot be empty...`n" -ForegroundColor Yellow
+		Exit 1
 }
 
 # Check if path exists
@@ -47,7 +56,7 @@ if ((Test-Path $Saveto -PathType leaf)){
 		Store-cred $Saveto
 	}
 	else {
-		write-host '[-] No changes made, Did nothing...' -ForegroundColor Yellow
+		write-host "[-] No changes made to file $Filename ..." -ForegroundColor Yellow
 		Exit 1
 	}
 }
