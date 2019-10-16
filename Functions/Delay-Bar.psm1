@@ -19,7 +19,7 @@ Function Delay-Bar {
 	Param (
 	[Parameter(Mandatory=$true)] [int]$time
 	)
-	$I = 1
+	$I = 0
 		While($I -lt $time) {
 		$P = $I/$time*100
 		Write-Progress -Activity "Delay the next VM startup" -Status "$I% Complete:" -PercentComplete $P;
