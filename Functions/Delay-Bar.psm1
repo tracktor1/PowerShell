@@ -33,5 +33,3 @@ Function Delay-Bar {
 		}
 	}
 }
-
-Delay-Bar 10
