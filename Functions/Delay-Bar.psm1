@@ -12,17 +12,18 @@
 		seconds to count
 	
     .EXAMPLE
-		Delay-Bar -Seconds 10
+		Delay-Bar -Seconds 10 -$Message "Delay the next VM startup"
 DA-#>
 
 Function Delay-Bar {
 	Param (
-	[Parameter(Mandatory=$true)] [int]$time
+	[Parameter(Mandatory=$true)] [int]$Seconds,
+	[string]$Message
 	)
 	$I = 0
-		While($I -lt $time) {
-		$P = $I/$time*100
-		Write-Progress -Activity "Delay the next VM startup" -Status "$I% Complete:" -PercentComplete $P;
+		While($I -lt $Seconds) {
+		$P = $I/$Seconds*100
+		Write-Progress -Activity $Message -Status "$P% Complete:" -PercentComplete $P;
 		start-sleep 1
 		$I++
 		if ($host.UI.RawUI.KeyAvailable) {
