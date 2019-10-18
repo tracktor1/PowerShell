@@ -10,6 +10,9 @@
 
 	.PARAMETER Seconds
 		seconds to count
+		
+	.PARAMETER Message
+		Message to display during count
 	
     .EXAMPLE
 		Delay-Bar -Seconds 10 -$Message "Delay the next VM startup"
