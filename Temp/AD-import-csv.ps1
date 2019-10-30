@@ -2,7 +2,7 @@
 
 This script requires a csv file (users.csv) in the same folder
 The file must contain these column names in order to work:
-FirstName,LastName,Pass,OuPath,UserMail
+FirstName,LastName,UserMail,UserPhone,Pass,OuPath
 
 DA-#>
 
@@ -21,6 +21,7 @@ foreach ($User in $ADUserList) {
 	$Password = $User.Pass
 	$OU = $User.OuPath
 	$Email = $User.UserMail
+	$Phone = $User.UserPhone
 	
 	$usersplit = $Email.split("@")[0]	
 	
