@@ -1,7 +1,7 @@
 <#
 
 This script requires a csv file (users.csv) in the same folder
-The file must contain these column names in order to work:
+The csv file must contain these column names in order to work:
 FirstName,LastName,UserMail,UserPhone,Pass,OuPath
 
 DA-#>
