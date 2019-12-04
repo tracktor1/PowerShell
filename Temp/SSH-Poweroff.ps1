@@ -5,7 +5,7 @@ This script requires module Posh-SSH to run
 DA-#>
 
 #$cred = Get-Credential
-$credPath = 'C:\PS\Cred-Rep\indeni.txt'
+$credPath = 'C:\PS\Cred-Rep\cred.txt'
 $cred = Import-CliXml -Path $credPath 
 $IP = '10.10.10.43'
 $runcmd = 'sudo poweroff'
