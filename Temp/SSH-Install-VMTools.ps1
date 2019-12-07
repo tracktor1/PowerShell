@@ -18,8 +18,8 @@ if (Test-Connection -ComputerName $IP -Count 2 -Quiet) {
 	$sessionstream = New-SSHShellStream -SessionId $session.SessionId
 	$sessionstream.read() #| out-null
 	$user = Invoke-SSHCommand -Sessionid $sessionstream.SessionId -Command "whoami"
-	$string = "[sudo] password for $($user.output):"
-	Invoke-SSHStreamExpectSecureAction -Command 'sudo -i' -ShellStream $sessionstream -ExpectString $string -SecureAction $cred.password
+	$sudostring = "[sudo] password for $($user.output):"
+	Invoke-SSHStreamExpectSecureAction -Command 'sudo -i' -ShellStream $sessionstream -ExpectString $sudostring -SecureAction $cred.password
 	$sessionstream.read()
 	Start-Sleep -Seconds 1
 	$aptstring = "Do you want to continue? [Y/n]"
