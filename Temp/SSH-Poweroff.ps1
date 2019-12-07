@@ -14,7 +14,7 @@ for ($i=0; $i -le 10; $i++) {
 	Remove-SSHSession -SessionId $i
 }
 
-if (Test-Connection -ComputerName $IP -Count 1 -Quiet) {
+if (Test-Connection -ComputerName $IP -Count 2 -Quiet) {
 	$session = New-SSHSession -ComputerName $IP -Credential $cred -AcceptKey
 	Get-SSHSession
 	$sessionstream = New-SSHShellStream -SessionId $session.SessionId
