@@ -19,7 +19,7 @@ if (!(Test-Path $FolderPath)){
 foreach ($db in $EXdb) {
 	$Filename = $tt + '-' + $db.name + '.txt'
 	$Saveto = Join-Path $FolderPath $Filename
-	Get-Mailbox -Database $db.name | Get-MailboxStatistics | Sort totalitemsize -desc | ft displayname, totalitemsize, itemcount > $Saveto
+	Get-Mailbox -Database $db.name | Get-MailboxStatistics | Sort totalitemsize -desc | ft displayname, totalitemsize, itemcount | Out-File -FilePath $Saveto
 
 }
 exit
